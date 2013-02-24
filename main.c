@@ -1,14 +1,10 @@
 #define UNIX 1
 #define LINUX 1
-#define GCC 1
 
 #include "global.h"
-#include "nsfdb.h"
-#include "nsfdata.h"
-#include "osmisc.h"
-#include "osfile.h"
-#include "lapiplat.h"
-
+#include "ns.h" /* NSGetServerList */
+#include "osmisc.h" /* OSLoadString */
+#include "osmem.h" /* OSLockObject */
 
 	/* connecting to a remote server: */
 	//STATUS error = OSPathNetConstruct(NULL, server_name, db_name, "");
@@ -26,6 +22,7 @@
 
 	// STATUS error = NSFDbClose(db_handle)
 
+#include <stdio.h>
 
 int main(int argc, char **argv)
 {
@@ -40,7 +37,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "notes error: %s\n", str);
 	}
 
-	uint8_t *c = (char *)OSLockObject(server_list);
+	uint8_t *c = (uint8_t *)OSLockObject(server_list);
 
 	/* little endian, 16 bits. "WORD" is used on windows. */
 	uint16_t server_count = (c[0] & 0xff)  | ((c[1] & 0xff) << 8);

@@ -27,10 +27,15 @@
 int main(int argc, char **argv)
 {
 	/* args: [server name] <database filename> */
-	NotesInitExtended(argc, argv);
+	STATUS error = NotesInitExtended(argc, argv);
+	if (error) {
+		char str[256];
+		OSLoadString(NULLHANDLE, ERR(error), str, sizeof(str)-1);
+		fprintf(stderr, "notes error: %s\n", str);
+	}
 
 	DHANDLE server_list = NULLHANDLE;
-	STATUS error = NSGetServerList(NULL, &server_list);
+	error = NSGetServerList(NULL, &server_list);
 	if (error) {
 		char str[256];
 		OSLoadString(NULLHANDLE, ERR(error), str, sizeof(str)-1);

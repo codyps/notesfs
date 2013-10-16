@@ -1,0 +1,6 @@
+notesfs
+=======
+
+The goal is to provide a set of command line tools and/or a fuse interface for interacting with Domino/Notes servers.
+
+STATUS: not anywhere doing anything

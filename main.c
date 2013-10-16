@@ -29,17 +29,18 @@ int main(int argc, char **argv)
 	/* args: [server name] <database filename> */
 	STATUS error = NotesInitExtended(argc, argv);
 	if (error) {
-		char str[256];
-		OSLoadString(NULLHANDLE, ERR(error), str, sizeof(str)-1);
-		fprintf(stderr, "notes error: %s\n", str);
+		if (IS_STRING(error)) {
+			puts("is string");
+		}
+		fprintf(stderr, "NotesInitExtended error: %d, %d\n", PKG(error), ERRNUM(error));
+		return 0;
 	}
 
 	DHANDLE server_list = NULLHANDLE;
 	error = NSGetServerList(NULL, &server_list);
 	if (error) {
-		char str[256];
-		OSLoadString(NULLHANDLE, ERR(error), str, sizeof(str)-1);
-		fprintf(stderr, "notes error: %s\n", str);
+		fprintf(stderr, "NSGetServerList error: %d, %d\n", PKG(error), ERRNUM(error));
+		return 0;
 	}
 
 	uint8_t *c = (uint8_t *)OSLockObject(server_list);

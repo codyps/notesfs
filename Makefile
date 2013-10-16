@@ -1,6 +1,7 @@
 all::
 
-NOTESAPI=$(HOME)/Downloads/Lotus_CAPITkt_Dom853/notesapi
+NO_LTO=1
+NOTESAPI=$(HOME)/notesapi-853
 
 obj-test = main.o
 TARGETS = test
